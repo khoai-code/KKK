@@ -1,0 +1,79 @@
+// Query 1: Basic Info
+const query1 = `
+SELECT 
+    entity_to_create_fund, id as clickup_id,
+    fund_name, law_firm, fund_admin, partner,
+    investment_type, fund_structure, fund_engagement, complexity_level, year_month
+FROM dbt_int.int_digitization_consolidate
+WHERE  
+  entity_to_create_fund = '${folder_name}'
+  AND entity_to_create_fund <> '#Non digitization tasks'
+  AND status IN ('done', 'completed')
+  AND task_group NOT IN ('TBC')
+  AND due_date >= '2024-01-01'
+  AND due_date <= CURRENT_DATE()
+  AND task_group = 'New Form'
+  AND row_num = 1
+  AND status NOT IN ('paused', 'cancelled')
+ORDER BY due_date ASC
+FORMAT JSON
+`;
+
+// Query 2: Project Counts
+const query2 = `
+SELECT
+    entity_to_create_fund,
+    COUNT(DISTINCT CASE WHEN task_group = 'New Form' THEN id END) AS new_build_count,
+    COUNT(DISTINCT CASE WHEN task_group = 'Update' THEN id END) AS update_count,
+    COUNT(DISTINCT CASE WHEN task_group = 'Export' THEN id END) AS export_count,
+    COUNT(DISTINCT CASE WHEN task_group = 'Import' THEN id END) AS import_count,
+    COUNT(DISTINCT CASE WHEN task_group = 'IDM' THEN id END) AS idm_count,
+    COUNT(DISTINCT CASE WHEN task_group = 'Integration' THEN id END) AS integration_count
+FROM dbt_int.int_digitization_consolidate
+WHERE entity_to_create_fund = '${folder_name}'
+  AND entity_to_create_fund <> '#Non digitization tasks'
+  AND status IN ('done', 'completed')
+  AND task_group NOT IN ('TBC')
+  AND start_date >= '2025-01-01'
+  AND status NOT IN ('paused', 'cancelled')
+GROUP BY entity_to_create_fund
+ORDER BY entity_to_create_fund
+FORMAT JSON
+`;
+
+// Query 3: Performance Metrics
+const query3 = `
+SELECT
+    entity_to_create_fund, year_month,
+    AVG(CASE WHEN task_group = 'New Form' THEN form_building_squad_total_effort END) AS avg_effort_new_form,
+    AVG(CASE WHEN task_group = 'New Form' THEN actual_days_to_dlv END) AS avg_days_new_form,
+    AVG(CASE WHEN task_group = 'Update' THEN actual_days_to_dlv END) AS avg_days_update
+FROM dbt_int.int_digitization_consolidate
+WHERE entity_to_create_fund = '${folder_name}'
+  AND entity_to_create_fund <> '#Non digitization tasks'
+  AND status IN ('done', 'completed')
+  AND task_group NOT IN ('TBC')
+  AND due_date >= '2024-01-01'
+  AND due_date <= CURRENT_DATE()
+  AND status NOT IN ('paused', 'cancelled')
+GROUP BY entity_to_create_fund, year_month
+ORDER BY entity_to_create_fund
+FORMAT JSON
+`;
+
+// Query 4: Recent Activities
+const query4 = `
+SELECT DISTINCT 
+    id as clickup_id, fund_name, name, complexity_level
+FROM dbt_int.int_digitization_consolidate
+WHERE entity_to_create_fund = '${folder_name}'
+  AND entity_to_create_fund <> '#Non digitization tasks'
+  AND status IN ('done', 'completed')
+  AND task_group NOT IN ('TBC')
+  AND due_date >= '2025-01-01'
+  AND due_date <= CURRENT_DATE()
+  AND status NOT IN ('paused', 'cancelled')
+ORDER BY due_date DESC
+LIMIT 8
+FORMAT JSON
+`;

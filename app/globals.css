@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+@theme {
+  /* Light mode - Inspired by Linear/Vercel - High contrast, clean neutrals */
+  --color-background: 0 0% 99%;          /* #FCFCFC - ultra clean white */
+  --color-foreground: 0 0% 9%;           /* #171717 - deep black for strong contrast */
+  --color-card: 0 0% 100%;               /* #FFFFFF - pure white cards */
+  --color-card-foreground: 0 0% 9%;      /* #171717 */
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 0 0% 9%;
+  --color-primary: 220 13% 18%;          /* #252B36 - deep slate for primary actions */
+  --color-primary-foreground: 0 0% 100%;
+  --color-secondary: 220 9% 46%;         /* #687283 - balanced gray */
+  --color-secondary-foreground: 0 0% 100%;
+  --color-muted: 220 14% 96%;            /* #F4F5F7 - subtle gray for backgrounds */
+  --color-muted-foreground: 220 9% 46%;  /* #687283 */
+  --color-accent: 220 14% 97%;           /* #F6F7F9 - very light gray-blue accent (readable) */
+  --color-accent-foreground: 0 0% 9%;
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 100%;
+  --color-border: 220 13% 91%;           /* #E3E4E8 - defined borders */
+  --color-input: 0 0% 100%;
+  --color-ring: 220 60% 50%;
+
+  /* Additional semantic colors for better hierarchy */
+  --color-surface: 0 0% 98%;             /* #FAFAFA - elevated surfaces */
+  --color-subtle: 220 13% 95%;           /* #F0F1F3 - subtle backgrounds */
+  --color-text-strong: 0 0% 9%;          /* #171717 - headings, important text */
+  --color-text-base: 0 0% 20%;           /* #333333 - body text */
+  --color-text-subtle: 220 9% 46%;       /* #687283 - secondary text */
+
+  --radius-lg: 0.75rem;      /* 12px */
+  --radius-md: 0.625rem;     /* 10px */
+  --radius-sm: 0.5rem;       /* 8px */
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Dark mode - Inspired by Arc/Notion - Soft charcoal with luminous accents */
+.dark {
+  --color-background: 220 13% 10%;       /* #16181D - deep charcoal */
+  --color-foreground: 0 0% 98%;          /* #FAFAFA - bright white text */
+  --color-card: 220 12% 14%;             /* #1F2228 - elevated charcoal cards */
+  --color-card-foreground: 0 0% 98%;     /* #FAFAFA */
+  --color-popover: 220 12% 14%;
+  --color-popover-foreground: 0 0% 98%;
+  --color-primary: 220 60% 65%;          /* #6BA4F6 - luminous blue */
+  --color-primary-foreground: 220 13% 10%;
+  --color-secondary: 220 9% 60%;         /* #8D99AB - cool gray */
+  --color-secondary-foreground: 0 0% 98%;
+  --color-muted: 220 10% 18%;            /* #282C34 - subtle background */
+  --color-muted-foreground: 220 9% 70%;  /* #A8B2C1 - muted text */
+  --color-accent: 220 60% 55%;           /* #4B8CF5 - vibrant blue accent */
+  --color-accent-foreground: 0 0% 98%;
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 98%;
+  --color-border: 220 13% 20%;           /* #2D323A - defined borders */
+  --color-input: 220 12% 14%;
+  --color-ring: 220 60% 55%;
+
+  /* Additional semantic colors for dark mode */
+  --color-surface: 220 12% 16%;          /* #252932 - slightly elevated */
+  --color-subtle: 220 10% 12%;           /* #1A1D24 - de-emphasized */
+  --color-text-strong: 0 0% 98%;         /* #FAFAFA - headings */
+  --color-text-base: 0 0% 90%;           /* #E5E5E5 - body text */
+  --color-text-subtle: 220 9% 70%;       /* #A8B2C1 - secondary text */
+
+  color-scheme: dark;
+}
+
+/* Asian mode - Warm beige with high hue separation and earthy tones */
+.asian {
+  --color-background: 35 30% 94%;        /* #F2EBE3 - warm beige background */
+  --color-foreground: 25 35% 20%;        /* #524035 - rich brown for strong contrast */
+  --color-card: 40 40% 98%;              /* #FBF9F5 - cream white cards (distinct from bg) */
+  --color-card-foreground: 25 35% 20%;   /* #524035 */
+  --color-popover: 40 40% 98%;
+  --color-popover-foreground: 25 35% 20%;
+  --color-primary: 25 50% 45%;           /* #A66B4A - terracotta primary */
+  --color-primary-foreground: 0 0% 100%;
+  --color-secondary: 30 35% 35%;         /* #7D6451 - warm brown secondary */
+  --color-secondary-foreground: 0 0% 100%;
+  --color-muted: 38 35% 90%;             /* #EBE0D3 - warm muted background */
+  --color-muted-foreground: 30 30% 40%;  /* #8B7563 - earthy muted text */
+  --color-accent: 42 56% 85%;            /* #F4E0B9 - soft cream accent (user requested) */
+  --color-accent-foreground: 25 35% 20%;
+  --color-destructive: 0 72% 51%;
+  --color-destructive-foreground: 0 0% 100%;
+  --color-border: 35 25% 82%;            /* #D9CEC0 - defined warm border */
+  --color-input: 40 40% 98%;
+  --color-ring: 25 50% 45%;
+
+  /* Additional semantic colors for asian mode */
+  --color-surface: 38 35% 96%;           /* #F5EEDF - slightly elevated */
+  --color-subtle: 38 30% 88%;            /* #E8DDC8 - de-emphasized */
+  --color-text-strong: 25 40% 18%;       /* #4A3529 - darker headings */
+  --color-text-base: 25 35% 25%;         /* #5C4639 - body text */
+  --color-text-subtle: 30 25% 45%;       /* #967E6C - secondary text */
+
+  color-scheme: light;
+}
+
+* {
+  border-color: hsl(var(--color-border));
+}
+
+body {
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Enhanced shadows for all themes - Inspired by Linear/Notion */
+.shadow-sm {
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.03),
+    0 1px 3px 0 rgba(0, 0, 0, 0.02);
+}
+
+.shadow-md {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 4px 8px -1px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-lg {
+  box-shadow:
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    0 8px 16px -4px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.shadow-xl {
+  box-shadow:
+    0 8px 12px -4px rgba(0, 0, 0, 0.08),
+    0 16px 32px -8px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.shadow-2xl {
+  box-shadow:
+    0 16px 24px -8px rgba(0, 0, 0, 0.1),
+    0 32px 64px -16px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+/* Dark mode shadow adjustments - deeper, more pronounced */
+.dark .shadow-sm {
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.4),
+    0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-md {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.5),
+    0 4px 8px -1px rgba(0, 0, 0, 0.4);
+}
+
+.dark .shadow-lg {
+  box-shadow:
+    0 4px 6px -2px rgba(0, 0, 0, 0.6),
+    0 8px 16px -4px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.dark .shadow-xl {
+  box-shadow:
+    0 8px 12px -4px rgba(0, 0, 0, 0.7),
+    0 16px 32px -8px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Asian mode shadow adjustments - warm, subtle */
+.asian .shadow-sm {
+  box-shadow:
+    0 1px 2px 0 rgba(82, 64, 53, 0.08),
+    0 1px 3px 0 rgba(82, 64, 53, 0.06);
+}
+
+.asian .shadow-md {
+  box-shadow:
+    0 2px 4px -1px rgba(82, 64, 53, 0.1),
+    0 4px 8px -1px rgba(82, 64, 53, 0.08);
+}
+
+.asian .shadow-lg {
+  box-shadow:
+    0 4px 6px -2px rgba(82, 64, 53, 0.1),
+    0 8px 16px -4px rgba(82, 64, 53, 0.12),
+    0 0 0 1px rgba(82, 64, 53, 0.04);
+}
+
+/* Typography enhancements for better hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  color: hsl(var(--color-text-strong, var(--color-foreground)));
+  font-weight: 600;
+}
+
+.asian h1,
+.asian h2,
+.asian h3,
+.asian h4 {
+  font-weight: 700;
+  color: hsl(var(--color-text-strong));
+}
+
+/* Card enhancements - solid backgrounds with better borders */
+[class*="Card"] {
+  background-color: hsl(var(--color-card));
+  opacity: 1;
+  border-width: 1px;
+}
+
+/* Add subtle gradient overlays for tactile depth */
+.card-gradient {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--color-border)),
+    transparent
+  );
+  opacity: 0.5;
+}
+
+/* Hover states - consistent across themes */
+.hover-lift {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 16px -4px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.dark .hover-lift:hover {
+  box-shadow:
+    0 8px 16px -4px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.asian .hover-lift:hover {
+  box-shadow:
+    0 8px 16px -4px rgba(82, 64, 53, 0.15),
+    0 0 0 1px rgba(82, 64, 53, 0.06);
+}
+
+/* Focus states - WCAG compliant */
+*:focus-visible {
+  outline: 2px solid hsl(var(--color-ring));
+  outline-offset: 2px;
+}
+
+/* Link improvements */
+a {
+  color: hsl(var(--color-accent));
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: hsl(var(--color-accent));
+  opacity: 0.8;
+}
+
+.dark a {
+  color: hsl(var(--color-primary));
+}
+
+.dark a:hover {
+  opacity: 0.9;
+}
+
+/* Button improvements */
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid hsl(var(--color-ring));
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--color-muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-muted-foreground));
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--color-background));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-muted));
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-muted-foreground));
+}
