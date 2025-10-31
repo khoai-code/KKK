@@ -40,5 +40,8 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.3",
     "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1"
   }
 }
