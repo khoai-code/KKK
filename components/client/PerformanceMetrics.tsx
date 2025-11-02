@@ -186,7 +186,7 @@ export function PerformanceMetrics({ data }: PerformanceMetricsProps) {
     },
   ];
 
-  // Prepare chart data (only non-null months)
+  // Prepare chart data (only non-null months) and sort by date
   const chartData = data2025
     .filter(
       item =>
@@ -194,6 +194,12 @@ export function PerformanceMetrics({ data }: PerformanceMetricsProps) {
         item.avg_days_new_form !== null ||
         item.avg_days_update !== null
     )
+    .sort((a, b) => {
+      // Sort by year_month in chronological order (YYYY-MM format)
+      const dateA = a.year_month || '';
+      const dateB = b.year_month || '';
+      return dateA.localeCompare(dateB);
+    })
     .map(item => ({
       month: item.year_month ? item.year_month.split('-')[1] : '', // Extract month
       effort: item.avg_effort_new_form,
