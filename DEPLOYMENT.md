@@ -72,6 +72,21 @@ If users still can't log in, you may need to add your Vercel URL to Google Cloud
 3. Ensure Google Cloud Console has the correct redirect URIs
 4. Clear browser cookies and try again
 
+### Issue: "Invalid header value" error after OAuth login
+
+**Error message:** `Headers.append: "Bearer eyJ...%0A..." is an invalid header value`
+
+**Cause:** Environment variables in Vercel contain newline characters or extra whitespace.
+
+**Solution:**
+This is now automatically handled by the application. However, when setting environment variables in Vercel:
+1. Make sure to **paste the value without any line breaks**
+2. Remove any trailing spaces or newlines
+3. Copy directly from your `.env.local` file
+4. Do NOT format the key/value on multiple lines
+
+The application now automatically sanitizes all environment variables to remove whitespace and newlines.
+
 ### Issue: Only you can log in, others can't
 
 **Cause:** Your Google account is set as a test user in Google Cloud Console.
