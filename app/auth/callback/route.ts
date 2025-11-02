@@ -1,6 +1,7 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
+import { getSupabaseUrl, getSupabaseAnonKey, getSupabaseServiceRoleKey } from '@/lib/supabase/config';
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
@@ -12,8 +13,8 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      getSupabaseUrl(),
+      getSupabaseAnonKey(),
       {
         cookies: {
           get(name: string) {
@@ -59,8 +60,8 @@ export async function GET(request: NextRequest) {
     // If OAuth login successful, ensure user profile exists
     if (data?.user) {
       const supabaseAdmin = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!
+        getSupabaseUrl(),
+        getSupabaseServiceRoleKey()
       );
 
       // Check if user profile exists
