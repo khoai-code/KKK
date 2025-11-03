@@ -2,6 +2,53 @@
 
 A modern, AI-powered client analytics platform for tracking fund digitization projects, client engagement metrics, and generating intelligent business insights.
 
+## Screenshots
+
+### Authentication
+![Login Page](screenshots/01-login-page.png)
+*Secure Google OAuth authentication*
+
+### Dashboard Views (Multi-Theme Support)
+
+#### Light Theme
+![Dashboard - Light](screenshots/02-dashboard-light.png)
+*Clean, professional light mode with high contrast*
+
+#### Dark Theme
+![Dashboard - Dark](screenshots/02-dashboard-dark.png)
+*Modern dark mode with luminous accents*
+
+#### Asian Theme
+![Dashboard - Asian](screenshots/02-dashboard-asian.png)
+*Warm, earthy tones with terracotta accents*
+
+### Client Search
+![Search Interface - Light](screenshots/12-search clients-light.png)
+![Search Interface - Dark](screenshots/12-search clients-dark.png)
+![Search Interface - Asian](screenshots/12-search clients-asian.png)
+*Smart fuzzy search with real-time results*
+
+### Settings Page
+![Settings - Light](screenshots/06-settings-page-light.png)
+![Settings - Dark](screenshots/06-settings-page-dark.png)
+![Settings - Asian](screenshots/06-settings-page-asian.png)
+*Theme customization and user preferences*
+
+### Glossary
+![Glossary - Light](screenshots/09-glossary-light.png)
+![Glossary - Dark](screenshots/09-glossary-dark.png)
+![Glossary - Asian](screenshots/09-glossary-asian.png)
+*Built-in terminology reference*
+
+### Reports & AI Features
+![AI Report Generator](screenshots/11-reports-ai generator.png)
+*GPT-4o powered business insights and recommendations*
+
+![Reports History - Light](screenshots/13-report history-light.png)
+![Reports History - Dark](screenshots/13-report history-dark.png)
+![Reports History - Asian](screenshots/13-report history-asian.png)
+*Access and manage previously generated reports*
+
 ## Features
 
 - **Smart Client Search** - Fuzzy matching algorithm for quick client lookup
@@ -13,6 +60,7 @@ A modern, AI-powered client analytics platform for tracking fund digitization pr
 - **Reports Archive** - Access previously generated AI reports
 - **CSV Exports** - Export data from all sections
 - **Glossary** - Built-in terminology reference
+- **PDF Export** - Download complete client reports as PDF
 
 ## Tech Stack
 
