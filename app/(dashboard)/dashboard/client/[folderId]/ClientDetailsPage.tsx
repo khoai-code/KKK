@@ -132,50 +132,77 @@ export function ClientDetailsPage({ folderId, folderName, action }: ClientDetail
   };
 
   const handleDownloadPDF = async () => {
-    if (!dashboardRef.current) return;
+    if (!dashboardRef.current) {
+      alert('Dashboard content not found. Please refresh the page and try again.');
+      return;
+    }
 
     try {
       setDownloadingPDF(true);
 
-      // Create a clone of the dashboard to capture
+      // Get the dashboard element
       const element = dashboardRef.current;
 
-      // Capture the element as canvas
+      // Wait a bit to ensure all content is rendered
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Capture the element as canvas with improved settings
       const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
+        scale: 2, // Higher quality
+        useCORS: true, // Handle cross-origin images
+        allowTaint: true, // Allow tainted canvas
+        logging: false, // Disable console logs
         backgroundColor: '#ffffff',
+        imageTimeout: 15000, // Wait up to 15s for images
+        removeContainer: false,
+        scrollY: -window.scrollY,
+        scrollX: -window.scrollX,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
       });
 
-      // Calculate PDF dimensions
+      // Calculate PDF dimensions to fit content
       const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       // Create PDF
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/png', 1.0);
 
-      let heightLeft = imgHeight;
-      let position = 0;
+      // If content fits on one page
+      if (imgHeight <= pageHeight) {
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      } else {
+        // Content spans multiple pages
+        let heightLeft = imgHeight;
+        let position = 0;
 
-      // Add first page
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= 297; // A4 height
-
-      // Add additional pages if needed
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
+        // Add first page
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= 297;
+        heightLeft -= pageHeight;
+
+        // Add additional pages if needed
+        while (heightLeft > 0) {
+          position = -(imgHeight - heightLeft);
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
       }
 
+      // Generate filename with date
+      const timestamp = new Date().toISOString().split('T')[0];
+      const filename = `${folderName.replace(/[^a-z0-9]/gi, '_')}_report_${timestamp}.pdf`;
+
       // Download the PDF
-      pdf.save(`${folderName.replace(/[^a-z0-9]/gi, '_')}_dashboard.pdf`);
+      pdf.save(filename);
+
+      console.log('PDF generated successfully');
     } catch (err) {
       console.error('Error generating PDF:', err);
-      alert('Failed to generate PDF. Please try again.');
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      alert(`Failed to generate PDF: ${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
     } finally {
       setDownloadingPDF(false);
     }
